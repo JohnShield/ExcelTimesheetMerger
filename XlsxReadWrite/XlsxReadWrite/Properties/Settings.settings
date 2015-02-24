@@ -1,0 +1,51 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="XlsxReadWrite.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DataTableName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">XlsxReadWriteTable</Value>
+    </Setting>
+    <Setting Name="DataTableNamespace" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">XlsxReadWrite</Value>
+    </Setting>
+    <Setting Name="TemporaryDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">TEMP</Value>
+    </Setting>
+    <Setting Name="InputFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">StateRoster.xlsx</Value>
+    </Setting>
+    <Setting Name="OutputFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">newAMCRoster.xlsx</Value>
+    </Setting>
+    <Setting Name="InputFileName2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AMCRoster.xlsx</Value>
+    </Setting>
+    <Setting Name="Input1Columns" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1,0,2,3,4,0,0,7,0,8,5,6</Value>
+    </Setting>
+    <Setting Name="Input2Columns" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1,2,3,4,5,6,7,8,9,10,11,12,13,14</Value>
+    </Setting>
+    <Setting Name="IncludeMatchArray_str" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AEC,Adelaide Showground,Adelaide Oval,Adelaide (M/C),Woodville,Pt Adelaide</Value>
+    </Setting>
+    <Setting Name="RemoveMatchArray_str" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Metro North East Region,Metro South Region,Mid North &amp; Yorke Peninsula Region,Riverland &amp; South East Region,South Coast &amp; Adelaide Hills Region,Western Region</Value>
+    </Setting>
+    <Setting Name="IncludeMatchArray_col" Type="System.String" Scope="User">
+      <Value Profile="(Default)">6,6,6,8,8,8</Value>
+    </Setting>
+    <Setting Name="RemoveMatchArray_col" Type="System.String" Scope="User">
+      <Value Profile="(Default)">7,7,7,7,7,7</Value>
+    </Setting>
+    <Setting Name="IncludeMatchArray_exact" Type="System.String" Scope="User">
+      <Value Profile="(Default)">false,false,false,false,false,false</Value>
+    </Setting>
+    <Setting Name="RemoveMatchArray_exact" Type="System.String" Scope="User">
+      <Value Profile="(Default)">true,true,true,true,true,true</Value>
+    </Setting>
+    <Setting Name="FilterHidden" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

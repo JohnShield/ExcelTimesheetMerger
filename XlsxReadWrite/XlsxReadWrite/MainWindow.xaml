@@ -1,0 +1,161 @@
+﻿<Window x:Class="XlsxReadWrite.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:properties="clr-namespace:XlsxReadWrite.Properties"
+        Title="St Johns Ambulance Roster Merger (Division AMC - John Shield 2014)" Height="700" Width="700">
+    <Window.Resources>
+        <Style TargetType="{x:Type FrameworkElement}">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}"  BasedOn="{StaticResource {x:Type FrameworkElement}}"/>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+            <Setter Property="Padding" Value="5,0,5,0"/>
+        </Style>
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type FrameworkElement}}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource {x:Type FrameworkElement}}"/>
+    </Window.Resources>
+    <TabControl x:Name="TabControl" SelectionChanged="TabControl_SelectionChanged">
+        <TabItem x:Name="TabItem1" Header="Converter">
+            <DockPanel>
+                <GroupBox DockPanel.Dock="Top" Header="Divisional roster .xlsx file">
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Content="Load " HorizontalAlignment="Left" Click="ReadInput2"/>
+                        <Button DockPanel.Dock="Right" Content="Browse" Click="ShowOpenFileDialog2"/>
+                        <TextBox Text="{Binding InputFileName2, Source={x:Static properties:Settings.Default}, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="private" x:Name="inputTextBox2"/>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox DockPanel.Dock="Top" Header="State Roster .xlsx file">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="Load " HorizontalAlignment="Left" Click="ReadInput"/>
+                    <Button DockPanel.Dock="Right" Content="Browse" Click="ShowOpenFileDialog"/>
+                    <TextBox Text="{Binding InputFileName, Source={x:Static properties:Settings.Default}, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="private" x:Name="inputTextBox"/>
+                </DockPanel>
+                </GroupBox>
+                <GroupBox DockPanel.Dock="Top" Header="Output .xlsx file">
+            <StackPanel>
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="Write" Click="WriteOutput"/>
+                    <Button DockPanel.Dock="Right" Content="Browse" Click="ShowSaveFileDialog"/>
+                    <TextBox Text="{Binding OutputFileName, Source={x:Static properties:Settings.Default}, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="private" x:Name="outputTextBox"/>
+                    </DockPanel>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="Open created file in MS Excel" IsChecked="True" x:FieldModifier="private" x:Name="openFileCheckBox"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+                <DataGrid x:FieldModifier="private" x:Name="dataGrid"/>
+            </DockPanel>
+        </TabItem>
+        <TabItem x:Name="TabItem2" Header="Settings">
+            <DockPanel>
+                <GroupBox DockPanel.Dock="Top" FontWeight="Bold" Header="Column Ordering">
+                    <DockPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Grid.Column="1" HorizontalAlignment="Stretch" FontWeight="Normal" Header="State Roster - input column reordering">
+                                <TextBox Text="{Binding Input1Columns, Source={x:Static properties:Settings.Default}, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="private" x:Name="SettingsInput1Columns"/>
+                            </GroupBox>
+                            <GroupBox Grid.Column="0" HorizontalAlignment="Stretch" FontWeight="Normal" Header="Divisional Roster - input column reordering">
+                                 <TextBox Text="{Binding Input2Columns, Source={x:Static properties:Settings.Default}, UpdateSourceTrigger=PropertyChanged}" x:FieldModifier="private" x:Name="SettingsInput2Columns"/>
+                            </GroupBox>
+                        </Grid>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox DockPanel.Dock="Top" FontWeight="Bold" Header="State Roster - Row Filters" Height="250">
+                    <ScrollViewer >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Grid.Column="0" HorizontalAlignment="Stretch" FontWeight="Normal" Header="Remove Filters: [ Text to Match ][ Column ][ Exact Match ]">
+                            <DockPanel>
+                                <DockPanel x:Name="DockPanelRemoveFilter" DockPanel.Dock="Top">
+                                    <DockPanel DockPanel.Dock="Top">
+                                    <CheckBox DockPanel.Dock="Right" Width="17"/>
+                                    <TextBox DockPanel.Dock="Right" Width="34"/>
+                                    <TextBox/>
+                                </DockPanel>
+                                </DockPanel>
+                                <Button DockPanel.Dock="Bottom" Content="Add Remove Filter" Click="AddRemoveFilter" VerticalAlignment="Bottom"/>
+                            </DockPanel>
+                            </GroupBox>
+                            
+                            <GroupBox Grid.Column="1" HorizontalAlignment="Stretch" FontWeight="Normal" Header="Include Filters: [ Text to Match ][ Column ][ Exact Match ]">
+                            <DockPanel>
+                                 <DockPanel x:Name="DockPanelIncludeFilter" DockPanel.Dock="Top">
+                                        <DockPanel DockPanel.Dock="Top">
+                                    <CheckBox DockPanel.Dock="Right" />
+                                    <TextBox DockPanel.Dock="Right" Width="34"/>
+                                    <TextBox/>
+                                </DockPanel>
+                                </DockPanel>
+                                <Button DockPanel.Dock="Bottom" Content="Add Include Filter" Click="AddIncludeFilter" VerticalAlignment="Bottom"/>
+                            </DockPanel>
+                            </GroupBox>
+                        </Grid>
+                    </ScrollViewer>
+                </GroupBox>
+                <GroupBox DockPanel.Dock="Top" FontWeight="Bold" Header="Hidden Column Removal">
+                    <DockPanel>
+                        <CheckBox FontWeight="Normal" Content="Filter Hidden Rows (Filters out hidden rows in both input spreadsheets)" x:Name="FilterHiddenCheckBox" IsChecked="{Binding Path=FilterHidden, Source={x:Static properties:Settings.Default}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox DockPanel.Dock="Top" FontWeight="Bold" Header="Identical Row Removal">
+                    <DockPanel>
+                        <TextBlock FontWeight="Normal">
+                        Matching based on [ID] [Date] [Start Time] [End Time] [Event Name (Partial Match)]
+                        </TextBlock>
+                    </DockPanel>
+                </GroupBox>
+                <GroupBox DockPanel.Dock="Top" FontWeight="Bold" Header="Sorting Algorithm">
+                    <DockPanel>
+                        <TextBlock FontWeight="Normal">
+                        Sorting based on 2nd column in date format.
+                        </TextBlock>
+                    </DockPanel>
+                </GroupBox>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" FontSize="18"  DockPanel.Dock="Bottom" Content="Save Settings" Click="SettingsSaveButton" VerticalAlignment="Bottom" Margin="3,0,3,3" />
+                </Grid>
+            </DockPanel>
+        </TabItem>
+        <TabItem x:Name="TabItem3" Header="?">
+            <DockPanel>
+            <GroupBox DockPanel.Dock="Top" FontWeight="Bold"  Header="Copyright">
+                    <TextBlock FontWeight="Normal">
+                        St Johns Ambulance - AMC Division <LineBreak/>
+                        <LineBreak/>
+                        Author: John Shield <LineBreak/>
+                        Date: October 2014 <LineBreak/>
+                        Email: shield@ieee.org
+                    </TextBlock>
+                </GroupBox>
+            <GroupBox DockPanel.Dock="Top" FontWeight="Bold" Header="Usage Instructions">
+                <TextBlock FontWeight="Normal">
+                    This program merges the St Johns Ambulance state event roster with a divisional event roster.<LineBreak/>
+                    <LineBreak/>
+                    1. Select the state event roster file using "Browse", if the correct one is not already listed <LineBreak/>
+                    2. Select the divisional event roster file using "Browse", if the correct one is not already listed <LineBreak/>
+                    3. Select or type the desired output filename of the new divisional roster <LineBreak/>
+                    4. Click "Write". The two rosters should automatically merge according to the settings (adjustable in the settings tab) <LineBreak/>
+                </TextBlock>
+            </GroupBox>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
+</Window>

@@ -1,0 +1,9 @@
+1. Sorting Algorithm
+	- sorting options
+		- enable sorting option
+		- column for sorting to occur on
+	- date conversion of a column
+		- number of column to perform date conversion on
+2. Matching function to determine when two entries are the same
+	- linked somewhat to sorting function
+
